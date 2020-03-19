@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>cycle</title>
+    <script src="./vue.js" type="text/javascript" charset="utf-8"></script>
+</header>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            // 虚拟dom
+            // el表示vue下的虚拟dom的id标识，
+            // 在运行时，vue框架会自动完成虚拟dom到真实dom的转换和更新
+            el: '#app',
+            data:{
+                info:'hi vue.js'
+            }
+        })
+    </script>
+</body>
+
+</html>

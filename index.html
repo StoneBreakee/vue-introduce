@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue</title>
+    <script type="text/javascript" src="vue.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{a}}
+    </div>
+
+    每个vue应用，都是从new Vue()开始的，类似于Java的应用程序都是从main函数开始的
+    但是spring应用提供了一套自己的框架，可以aop，可以di等特性，也是以main函数开始
+    vue应用原理类似于 java的main函数和spring框架
+
+    如果需要vue的响应式特性，就需要在vue实例化时将该变量提前放入data中，否则该变量不会拥有
+    响应式特性
+
+    vue实例还暴露了一些有用的选项实例属性和方法，他们都有'$'符，以便与用户定义的属性区分开
+
+    生命周期函数 不要在选项属性或回调上使用箭头函数，因为箭头函数没有this
+
+    <script type="text/javascript">
+        var data = { a: 1 }
+        var vm = new Vue({
+            el: '#app',
+            // data: {
+            //     message: 'hello vue.js \n',
+            //     info: 'how to use vue in project'
+            // }
+            data: data
+        })
+        data.a = "change data.a... after declare vue instance"
+        vm.a = 'vm.a'
+        vm.a == data.a
+        console.log(vm.$a)
+        console.log(vm.$data)
+        console.log(vm.$el)
+
+        // $watch 是一个实例方法
+        vm.$watch('a',function(newVal,oldVal){
+            // 这个回调将在 vm.a 发生改变后调用
+            console.log(newVal,oldVal)
+        })
+        vm.a = 'last'
+    </script>
+</body>
+
+</html>
