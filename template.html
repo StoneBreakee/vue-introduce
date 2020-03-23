@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>模板语法</title>
+    <script src="./vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        v-once
+        {{msg}}
+        <span v-once>{{msg}}</span>
+
+        rawhtml
+        <p> this should be red font</p>
+        <p v-html="rawhtml"></p>
+
+        attribute
+        <p v-bind:class="red">red color</p>
+
+        javascript 表达式
+        {{ num + 1}}
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hi vue',
+                rawhtml: '<span style="color:red">This should be red font</span>',
+                red: 'red',
+                num: 10
+            }
+        })
+        app.msg = 'hit ...'
+    </script>
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+    </style>
+</body>
+
+</html>
