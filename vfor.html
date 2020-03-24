@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>v-for</title>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        维护状态
+
+        当vue正在更新使用v-for渲染的元素列表时，它默认使用‘就地更新’的策略。如果数据项的
+        顺序被改变,vue将不会移动DOM元素来匹配数据项的顺序，而是就近地更新每个元素，并确保
+        它们在每个索引位置正确渲染。
+
+        这个默认的模式是高效的，但是只适用于不依赖子组件状态或临时DOM状态（例如，表单输入值）
+        的列表渲染输出。
+
+        尽可能在使用 v-for时提供 key attribute,使vue跟踪节点，对数据排序时更新节点顺序
+
+        <ul>
+            <li v-for="item,index in items" >{{item.id}} {{item.message}}</li>
+        </ul>
+
+        <ul>
+            <li v-for="(value,key) in obj">{{key}} : {{value}}</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: [{ message: 'msg1', id: 1 }, { message: 'msg2', id: 2 }],
+                obj: {
+                    titleKey: 'title',
+                    name: 'name',
+                    address: 'address'
+                }
+            },
+            updated: function () {
+                console.log(this.items)
+            }
+        })
+        // var first = app.items.splice(0, 1)[0]
+        // app.items.splice(1, 0, first)
+        app.items.reverse()
+    </script>
+</body>
+
+</html>

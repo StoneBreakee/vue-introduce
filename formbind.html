@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>v-for</title>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+
+<body>
+    表单输入绑定
+
+    v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件<br />
+    text 和 textarea 元素使用value属性 和input事件 <br />
+    checkbox 和 radio 使用 checked 属性，和change事件<br />
+    select 将value 作为属性，并将change作为事件<br />
+
+
+    <div id="app">
+        <input v-model="message" placeholder="edit-me" />
+        <p>Message is :{{message}}</p>
+
+        <input type="checkbox" id="1" value="john" v-model="checkedNames"><label for="1">john</label>
+        <input type="checkbox" id="2" value="mike" v-model="checkedNames"><label for="1">mike</label>
+        <input type="checkbox" id="3" value="Jack" v-model="checkedNames"><label for="1">Jack</label>
+        <br />
+        <span>ChekedNames:{{checkedNames}}</span>
+        <br />
+        <input type="radio" id="1" value="one" v-model="radioName"><label for="1">one</label>
+        <input type="radio" id="2" value="two" v-model="radioName"><label for="1">two</label>
+        <br />
+        <span>Radio:{{radioName}}</span>
+
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: [{ message: 'msg1', id: 1 }, { message: 'msg2', id: 2 }],
+                obj: {
+                    titleKey: 'title',
+                    name: 'name',
+                    address: 'address'
+                },
+                message: "",
+                checkedNames: [],
+                radioName: ""
+            }
+        })
+
+    </script>
+</body>
+
+</html>

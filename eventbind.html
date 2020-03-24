@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>event-for</title>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+
+<body>
+    $event 代表原生时间对象
+    <div id="app">
+        <button @click="greet('me',$event)"></button>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: [{ message: 'msg1', id: 1 }, { message: 'msg2', id: 2 }],
+                obj: {
+                    titleKey: 'title',
+                    name: 'name',
+                    address: 'address'
+                }
+            },
+            methods: {
+                greet: function (val, event) {
+                    console.log(event)
+                }
+            },
+            updated: function () {
+                console.log(this.items)
+            }
+        })
+        // var first = app.items.splice(0, 1)[0]
+        // app.items.splice(1, 0, first)
+        app.items.reverse()
+    </script>
+</body>
+
+</html>
