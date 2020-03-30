@@ -6,6 +6,7 @@
 </template>
 
 <script>
+// 如何在vue-cli 中引入vue-router
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
