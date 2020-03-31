@@ -15,8 +15,6 @@
         <router-link to="/bar">Go to bar</router-link>
 
         <router-view></router-view>
-
-        {{username}}
     </div>
     <script type="text/javascript">
 
@@ -34,17 +32,7 @@
             // 通过注入路由器，
             // 我们可以在任何组件内通过this.$router访问路由器
             // 也可以通过this.$route访问当前路由
-            router: router,
-            computed: {
-                username() {
-                    return this.$route.params.username
-                }
-            },
-            methods: {
-                goBack() {
-                    window.history.length > 1 ? this.$router().go(-1) : this.$router.push('/')
-                }
-            }
+            router: router
         })
     </script>
 </body>
