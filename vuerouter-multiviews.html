@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue Router</title>
+    <script src="./vue.js" type="text/javascript"></script>
+    <!-- 引入vue router -->
+    <script src="./vue-router.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="app">
+        try,router-view
+        <!-- <router-link to="/foo/123">Go to foo</router-link> -->
+        <!-- 路由参数的变化(不是路由的变化)，原来的组件实例会复用。-->
+        <!-- 因为两个路由渲染同一个组件，比起销毁再创建，复用会更加高效，不过这也意味着组件的生命周期钩子不会再被调用(create，mounted) -->
+        <!-- <router-link to="/bar/456">Go to bar1</router-link> -->
+        <!-- <router-link to="/bar/789">Go to bar2</router-link> -->
+        <!-- <NavBar/> -->
+        <router-view></router-view>
+        <router-view name="side"></router-view>
+        <router-view name="main"></router-view>
+
+        <!-- {{userId}} -->
+    </div>
+    <script type="text/javascript">
+        // 动态参数绑定
+        // 多命名视图
+        const All = { template: '<div>all page<router-view name="all"></router-view></div>' }
+        const Foo = { template: '<div>Foo {{$route.params.userId}}<router-view name="main"></router-view></div>' }
+        const FooChild = { template: '<div>FooChild</div>' }
+        const Bar = {
+            template: '<div>Bar {{$route.params.userId}}</div>',
+            created: function () { console.log('bar created') },
+            mounted: function () { console.log('bar mounted') },
+            watch: {
+                '$route'(to, from) {
+                    console.log(to, from)
+                }
+            }
+        }
+
+        // 动态路径参数以':'号开头
+        // const routes = [{ path: '/foo/:userId', component: Foo }, { path: '/bar/:userId', name: 'bar', component: Bar }]
+        const routes = [{
+            path: '/',
+            // components: {
+            //     default: All,
+            //     side: Foo,
+            //     main: Bar
+            // }
+            components: {
+                default: All,
+                main: Foo,
+                side: Bar
+            },
+            children: [{
+                name: 'main',
+                component: FooChild
+            }]
+        }]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        var app = new Vue({
+            el: '#app',
+            // 通过注入路由器，
+            // 我们可以在任何组件内通过this.$router访问路由器
+            // 也可以通过this.$route访问当前路由
+            router: router,
+            computed: {
+                userId() {
+                    return this.$route.params.userId
+                }
+            },
+            methods: {
+                goBack() {
+                    window.history.length > 1 ? this.$router().go(-1) : this.$router.push('/')
+                }
+            }
+        })
+
+        // router.push({ path: '/foo/123' })
+        // setTimeout(() => {
+        //     // router.push({path:'/bar',params:{userId:456}}) 不生效
+        //     router.push({ name: 'bar', params: { userId: 456 } })
+        // }, 3000)
+    </script>
+</body>
+
+</html>
