@@ -12,7 +12,10 @@
     <div id="app">
         try,router-view
         <router-link to="/foo/123">Go to foo</router-link>
-        <router-link to="/bar/456">Go to bar</router-link>
+        <!-- 路由参数的变化 原来的组件实例会复用。-->
+        <!-- 因为两个路由渲染同一个组件，比起销毁再创建，复用会更加高效，不过这也意味着组件的生命周期钩子不会再被调用(create，mounted) -->
+        <router-link to="/bar/456">Go to bar1</router-link>
+        <router-link to="/bar/789">Go to bar2</router-link>
 
         <router-view></router-view>
 
@@ -20,8 +23,17 @@
     </div>
     <script type="text/javascript">
         // 动态参数绑定
-        const Foo = { template: '<div>Foo {{this.$route.params.userId}}</div>' }
-        const Bar = { template: '<div>Bar {{this.$route.params.userId}}</div>' }
+        const Foo = { template: '<div>Foo {{$route.params.userId}}</div>' }
+        const Bar = {
+            template: '<div>Bar {{$route.params.userId}}</div>',
+            created: function () { console.log('bar created') },
+            mounted: function () { console.log('bar mounted') },
+            watch: {
+                '$route'(to, from) {
+                    console.log(to, from)
+                }
+            }
+        }
 
         // 动态路径参数以':'号开头
         const routes = [{ path: '/foo/:userId', component: Foo }, { path: '/bar/:userId', component: Bar }]
